@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>10 Image Carousel (Edge-to-Edge)</title>
+  <title>10 Image Carousel (Image Only)</title>
   <style>
     html,body { height:100%; margin:0; background:#000; }
-    .wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#000; }
-    .carousel { width:100%; max-width:900px; position:relative; overflow:hidden; }
+    .wrap { display:flex; align-items:center; justify-content:center; background:#000; }
+    .carousel { position:relative; overflow:hidden; line-height:0; }
     .carousel-track { display:flex; transition:transform .5s ease; will-change:transform; }
-    .carousel img { width:100%; flex-shrink:0; display:block; height:auto; object-fit:cover; }
+    .carousel img { width:100%; height:auto; flex-shrink:0; display:block; }
     .btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:0; padding:10px 14px; border-radius:999px; cursor:pointer; font-size:18px; opacity:0; transition:opacity 0.3s; }
     .carousel:hover .btn { opacity:1; } /* Show arrows only on hover */
     .btn.prev { left:12px; } .btn.next { right:12px; }
-    .dots { position:absolute; left:50%; transform:translateX(-50%); bottom:12px; display:flex; gap:8px; }
+    .dots { position:absolute; left:50%; transform:translateX(-50%); bottom:12px; display:flex; gap:8px; opacity:0; transition:opacity 0.3s; }
+    .carousel:hover .dots { opacity:1; } /* Show dots only on hover */
     .dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; }
     .dot.active { background:#fff; }
   </style>
