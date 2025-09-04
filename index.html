@@ -3,25 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>White Seamless Carousel</title>
+  <title>Full-Width Carousel</title>
   <style>
     html, body {
-      height: 100%;
       margin: 0;
-      background: #fff; /* White background */
+      padding: 0;
+      background: #fff; /* Seamless with Notion */
     }
     .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
+      width: 100vw; /* take up the full width of the screen */
+      max-width: 100%;
+      margin: 0;
       padding: 0;
+      background: #fff;
+      display: flex;
+      justify-content: center;
     }
     .carousel {
       position: relative;
       overflow: hidden;
-      width: 100%;
-      max-width: 1000px; /* Keeps it responsive in Notion */
+      width: 100vw; /* stretch to viewport */
       background: #fff;
     }
     .carousel-track {
@@ -30,7 +31,7 @@
       will-change: transform;
     }
     .carousel img {
-      width: 100%;
+      width: 100vw;  /* each image fills screen width */
       height: auto;
       flex-shrink: 0;
       display: block;
@@ -50,7 +51,7 @@
       transition: opacity 0.3s;
     }
     .carousel:hover .btn {
-      opacity: 1; /* Show arrows only on hover */
+      opacity: 1; /* show arrows only on hover */
     }
     .btn.prev { left: 12px; }
     .btn.next { right: 12px; }
@@ -60,11 +61,11 @@
   <div class="wrap">
     <div class="carousel" role="region" aria-label="Image carousel">
       <div class="carousel-track" id="track">
-        <img src="https://picsum.photos/id/1015/1200/600" alt="Image 1">
-        <img src="https://picsum.photos/id/1016/1200/600" alt="Image 2">
-        <img src="https://picsum.photos/id/1018/1200/600" alt="Image 3">
-        <img src="https://picsum.photos/id/1020/1200/600" alt="Image 4">
-        <img src="https://picsum.photos/id/1024/1200/600" alt="Image 5">
+        <img src="https://picsum.photos/id/1015/1600/900" alt="Image 1">
+        <img src="https://picsum.photos/id/1016/1600/900" alt="Image 2">
+        <img src="https://picsum.photos/id/1018/1600/900" alt="Image 3">
+        <img src="https://picsum.photos/id/1020/1600/900" alt="Image 4">
+        <img src="https://picsum.photos/id/1024/1600/900" alt="Image 5">
       </div>
       <button class="btn prev" id="prev" aria-label="Previous slide">&#10094;</button>
       <button class="btn next" id="next" aria-label="Next slide">&#10095;</button>
@@ -79,7 +80,7 @@
     let idx = 0;
 
     function update() {
-      track.style.transform = `translateX(-${idx * 100}%)`;
+      track.style.transform = `translateX(-${idx * 100}vw)`; // shift by full viewport width
     }
 
     nextBtn.addEventListener('click', () => {
