@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>10 Image Carousel (Edge-to-Edge)</title>
+  <style>
+    html,body { height:100%; margin:0; background:#000; }
+    .wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#000; }
+    .carousel { width:100%; max-width:900px; position:relative; overflow:hidden; }
+    .carousel-track { display:flex; transition:transform .5s ease; will-change:transform; }
+    .carousel img { width:100%; flex-shrink:0; display:block; height:auto; object-fit:cover; }
+    .btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:0; padding:10px 14px; border-radius:999px; cursor:pointer; font-size:18px; opacity:0; transition:opacity 0.3s; }
+    .carousel:hover .btn { opacity:1; } /* Show arrows only on hover */
+    .btn.prev { left:12px; } .btn.next { right:12px; }
+    .dots { position:absolute; left:50%; transform:translateX(-50%); bottom:12px; display:flex; gap:8px; }
+    .dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; }
+    .dot.active { background:#fff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="carousel" role="region" aria-label="Image carousel">
+      <div class="carousel-track" id="track">
+        <img src="https://picsum.photos/seed/1/900/460" alt="Image 1">
+        <img src="https://picsum.photos/seed/2/900/460" alt="Image 2">
+        <img src="https://picsum.photos/seed/3/900/460" alt="Image 3">
+        <img src="https://picsum.photos/seed/4/900/460" alt="Image 4">
+        <img src="https://picsum.photos/seed/5/900/460" alt="Image 5">
+        <img src="https://picsum.photos/seed/6/900/460" alt="Image 6">
+        <img src="https://picsum.photos/seed/7/900/460" alt="Image 7">
+        <img src="https://picsum.photos/seed/8/900/460" alt="Image 8">
+        <img src="https://picsum.photos/seed/9/900/460" alt="Image 9">
+        <img src="https://picsum.photos/seed/10/900/460" alt="Image 10">
+      </div>
+      <button class="btn prev" id="prev" aria-label="Previous slide">&#10094;</button>
+      <button class="btn next" id="next" aria-label="Next slide">&#10095;</button>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+
+  <script>
+    const track = document.getElementById('track');
+    const slides = Array.from(track.children);
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+    const dotsEl = document.getElementById('dots');
+    let idx = 0;
+
+    // Create dots
+    slides.forEach((s, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i===0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      d.addEventListener('click', () => { idx = i; update(); });
+      dotsEl.appendChild(d);
+    });
+
+    function update() {
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      Array.from(dotsEl.children).forEach((d,i) => d.classList.toggle('active', i===idx));
+    }
+
+    nextBtn.addEventListener('click', () => { idx = (idx + 1) % slides.length; update(); });
+    prevBtn.addEventListener('click', () => { idx = (idx - 1 + slides.length) % slides.length; update(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { idx = (idx + 1) % slides.length; update(); }
+      if (e.key === 'ArrowLeft') { idx = (idx - 1 + slides.length) % slides.length; update(); }
+    });
+
+    update();
+  </script>
+</body>
+</html>
